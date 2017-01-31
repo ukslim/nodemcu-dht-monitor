@@ -1,18 +1,17 @@
+require("config")
 
-wifi.setmode(wifi.STATION)
-wifi.sta.config("myowndevices","possibly808would")
-print(wifi.sta.getip())
+function wifi_connect(onConnect)
 
-function get()
-   print("Doing get")
-   http.get("http://192.168.0.167:8080/greeting", nil, function(code,data)
-      if(code < 0) then
-         print("Request failed")
-      else
-         print(code, data)
-      end
-   end)
+    local config = config.wifi
+
+    wifi.sta.eventMonReg(wifi.STA_GOTIP, function()
+        wifi.sta.eventMonReg(wifi.STA_GOTIP) -- unregister
+
+        print("Connected: " .. wifi.sta.getip())
+        onConnect()
+    end
+
+    wifi.setmode(wifi.STATION)
+    wifi.sta.config(config.ssid,config.password)
+
 end
-
-tmr.register(0,5000,tmr.ALARM_AUTO, get)
-tmr.start(0)
