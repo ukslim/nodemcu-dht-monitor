@@ -9,7 +9,7 @@ function wifi_connect(onConnect)
 
         print("Connected: " .. wifi.sta.getip())
         onConnect()
-    end
+    end)
 
     wifi.setmode(wifi.STATION)
     wifi.sta.config(config.ssid,config.password)
