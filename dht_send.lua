@@ -1,4 +1,4 @@
-require("config.lua")
+require("config")
 
 local function handle_http_response(code,data)
     if(code < 200 or code > 299) then
@@ -15,14 +15,14 @@ function send_read()
 
     if status == dht.OK then
         
-        local reading_json = string.format(
-            '{"temp": %.2f, "humidity": %.2f, "source": "%s"}',
-            temp, humi, config.device_id)
+        local reading_influx = string.format(
+            'dht,room=%s temp=%.2f,humi=%.2f',
+            config.device_id, temp, humi)
 
-        print(reading_json)
+        print(reading_influx)
 
-        http.post(config.url,'Content-Type: application/json\r\n',
-            reading_json, handle_http_response)
+        http.post(config.url,'Content-Type: text/plain\r\n',
+            reading_influx, handle_http_response)
     elseif status == dht.ERROR_CHECKSUM then
         print( "DHT Checksum error." )
     elseif status == dht.ERROR_TIMEOUT then

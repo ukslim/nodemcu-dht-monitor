@@ -1,7 +1,9 @@
 # nodemcu-dht-monitor
 A temperature monitor in NodeMCU for ESP8266
 
-Untested and naive so far.
+So far, briefly tested and appears to work.
+
+It's naive though - see TODOs.
 
 TODO:
 

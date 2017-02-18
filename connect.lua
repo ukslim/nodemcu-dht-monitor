@@ -4,6 +4,11 @@ function wifi_connect(onConnect)
 
     local config = config.wifi
 
+    if wifi.sta.status() == 5 then -- STA_GOTIP
+       onConnect()
+       return
+    end
+
     wifi.sta.eventMonReg(wifi.STA_GOTIP, function()
         wifi.sta.eventMonReg(wifi.STA_GOTIP) -- unregister
 

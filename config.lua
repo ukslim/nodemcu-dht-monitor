@@ -5,6 +5,6 @@ config = {
     },
     dhtsink = {
         device_id = "one_and_only",
-        url = "http://192.168.0.167:8080/dhtReading"
+        url = "http://192.168.0.122:8086/write?db=mine"
     }
 }
